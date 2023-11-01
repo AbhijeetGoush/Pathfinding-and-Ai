@@ -14,6 +14,8 @@ public class EnemyScript : MonoBehaviour
     public FindPlayerState findPlayerState;
     public Transform player;
     public Transform enemy;
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,7 @@ public class EnemyScript : MonoBehaviour
     {
         eSm.CurrentState.HandleInput();
         eSm.CurrentState.LogicUpdate();
+        
     }
 
     private void FixedUpdate()
@@ -48,7 +51,7 @@ public class EnemyScript : MonoBehaviour
 
     public void CheckForSearch()
     {
-        if(!nav.pathPending && nav.remainingDistance > 1f)
+        if (!nav.pathPending && nav.remainingDistance > 1f)
         {
             nav.ResetPath();
             anim.Play("Male_Walk");
