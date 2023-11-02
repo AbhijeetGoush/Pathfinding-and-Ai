@@ -31,6 +31,7 @@ namespace Enemy
         {
             base.LogicUpdate();
             enemy.CheckForSearch();
+            enemy.DamagePlayer();
         }
 
         public override void PhysicsUpdate()

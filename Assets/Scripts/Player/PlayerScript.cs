@@ -2,7 +2,9 @@ using Player;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -13,7 +15,13 @@ public class PlayerScript : MonoBehaviour
     public float xv, yv, zv;
     public float veritcalRunSpeed;
     public float horizontalRunSpeed;
-    
+    public TextMeshProUGUI healthText;
+    public TextMeshProUGUI pointsText;
+
+    public int health;
+    string healthString;
+    public int points = 0;
+    string pointsStr;
     const string PACMAN_RUNNING = "Pacman_Run";
     const string PACMAN_IDLE = "Pacman_Idle";
     
@@ -31,14 +39,30 @@ public class PlayerScript : MonoBehaviour
         runningVerticalState = new RunningVerticalState(this, sm);
         runningHorizontalState = new RunningHorizontalState(this, sm);
         sm.Init(standingState);
+        health = 3;
+        points = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
+        healthString = health.ToString();
+        healthText.text = "Health: " + healthString;
+
+        pointsStr = points.ToString();
+        pointsText.text = "Score: " + pointsStr;
 
         sm.CurrentState.HandleInput();
         sm.CurrentState.LogicUpdate();
+
+        if(health <= 0)
+        {
+            SceneManager.LoadScene(1);
+        }
+        if(points == 6)
+        {
+            SceneManager.LoadScene(2);
+        }
     }
 
     void FixedUpdate()
